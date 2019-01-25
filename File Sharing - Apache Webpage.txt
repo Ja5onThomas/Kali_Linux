@@ -1,0 +1,18 @@
+Using Command line interface to start stop and restart the Apache Server 
+
+# service apache2 start 
+ 
+# service apache2 stop 
+
+# service apache2 restart 
+
+
+Create a directory in the following location 
+
+/var/www/html/ 
+
+example: jt 
+
+copy files to this location 
+
+http://localhost/jt
